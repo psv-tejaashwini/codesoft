@@ -74,3 +74,46 @@ def main():
 
 if __name__ == "__main__":
     main()
+GUI APPLICATION
+import tkinter as tk
+from tkinter import messagebox, simpledialog
+
+class Task:
+    def __init__(self, title, description):
+        self.title = title
+        self.description = description
+        self.completed = False
+
+    def __str__(self):
+        status = "✓" if self.completed else "✗"
+        return f"[{status}] {self.title}: {self.description}"
+
+
+class TodoListApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("To-Do List Application")
+        self.tasks = []
+
+        self.listbox = tk.Listbox(root, width=50, height=15)
+        self.listbox.pack(pady=10)
+
+        self.add_button = tk.Button(root, text="Add Task", command=self.add_task)
+        self.add_button.pack(pady=5)
+
+        self.update_button = tk.Button(root, text="Update Task", command=self.update_task)
+        self.update_button.pack(pady=5)
+
+        self.delete_button = tk.Button(root, text="Delete Task", command=self.delete_task)
+        self.delete_button.pack(pady=5)
+
+        self.complete_button = tk.Button(root, text="Mark as Completed", command=self.mark_completed)
+        self.complete_button.pack(pady=5)
+
+    def add_task(self):
+        title = simpledialog.askstring("Task Title", "Enter task title:")
+        description = simpledialog.askstring("Task Description", "Enter task description:")
+        if title and description:
+            task = Task(title, description)
+            self.tasks.append(task)
+            self.update_listbox
